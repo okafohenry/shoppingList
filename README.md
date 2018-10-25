@@ -1,2 +1,2 @@
 # shoppingList
-a quick project (for exploration purpose) using AngularJS
+a sample project (for exploration purpose) using AngularJS
