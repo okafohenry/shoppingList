@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shopping List</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>  
+    <style type="text/css">
+        body{
+            font-family:font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;   
+        }
+        .container{
+            width:30%;
+            background-color: #f1f1f1;
+            margin-top: 30px;
+            padding-top: 10px;
+            padding-bottom:20px;
+            font-size: 13px;
+        }
+        li{
+            list-style: none;
+        }
+        .list-group-item{
+            margin-left: -13px;
+            margin-right:-13px;
+        }
+        .remove{
+            position: absolute;
+            right:10px;
+            cursor:pointer;
+        }
+        .addItem-box{
+            position: relative;
+            padding-left: 5px;
+            padding-top:5px;
+            padding-bottom: 5px;
+        }
+        .btn{
+            padding:7.5px 15px 7.5px 15px;
+        }
+        .addItem-box{
+           size:10%;
+        }
+        
+    </style>
+</head>
+
+<body ng-app="myShoppingList" ng-controller="myCtrl">
+
+<div class="container">
+    <header>
+        <h3>My Shopping List</h3>
+    </header>
+    <ul class="list-group">
+        <li ng-repeat="product in products" class="list-group-item">{{product}}<span class="remove" ng-click="removeItem($index)">&times;</span></li>
+
+    </ul>
+    <form class="form-inline">
+        <div class="input-group">
+            <input type="text" ng-model="newItem" placeholder="Add an item to the  list" class="addItem-box" >
+            <div class="input-group-btn">  <button class="btn btn-success " ng-click="addMe()">Add</button></div>
+        </div>
+    </form>
+    <div class="msg">{{errormsg}}</div>
+
+</div>
+
+    <script>
+        var App = angular.module("myShoppingList",[]);
+        App.controller("myCtrl", function($scope){
+            $scope.products = ["milk","Coffee","Cereal"];
+            //adding new items to the existing List
+            $scope.addMe = function(){
+                $scope.errormsg = "";
+               if (!$scope.newItem) {return}
+               if ($scope.products.indexOf($scope.newItem) == -1) {
+                $scope.products.push($scope.newItem);
+                $scope.newItem = "";
+               } else{
+                $scope.errormsg = alert( $scope.newItem + " is already added to the list!");
+                $scope.newItem = "";
+               }
+              
+               
+            }
+            //removing items from the List
+            $scope.removeItem = function(x){
+                $scope.errormsg = "";
+                $scope.products.splice(x , 1);
+            }
+
+        });
+    </script>
+
+</body>
+</html>
